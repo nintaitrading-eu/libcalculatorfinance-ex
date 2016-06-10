@@ -7,7 +7,27 @@ defmodule Libcalculatorfinance.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: description,
+     package: package,
      deps: deps]
+  end
+
+  defp description do
+    """
+    Elixir library that contains functions that help
+    with financial calculations, related to trading
+    and investing.
+    """
+  end
+
+  defp package do
+    [
+    files: ["lib", "mix.exs", "README.adoc"],
+    maintainers: ["Andy Nagels"],
+    licenses: ["BSD 2.0"],
+    links: %{"GitHub" => "https://github.com/rockwolf/elixir/tree/libcalculatorfinance-release",
+             "Docs" => "http://hexdocs.pm/libcalculatorfinance/"}
+    ]
   end
 
   # Configuration for the OTP application
@@ -27,6 +47,7 @@ defmodule Libcalculatorfinance.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:ex_doc, "~> 0.11", only: :dev},
+     {:earmark, "~> 0.1", only: :dev}]
   end
 end
