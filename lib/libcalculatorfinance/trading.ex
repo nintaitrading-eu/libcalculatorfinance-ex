@@ -24,17 +24,20 @@ defmodule LibCalculatorFinance.Trading do
 
   ## Examples
 
-      iex> LibCalculatorFinance.Trading.calculate_risk_actual([])
-      nil
-      iex> LibCalculatorFinance.Trading.calculate_risk_actual([1,2,3,4,5])
-      3.0
-      iex> LibCalculatorFinance.Trading.calculate_risk_actual([1.5,-2.1,3,4.5,5])
-      2.38
+      # -minimum risk-
+      iex> LibCalculatorFinance.Trading.calculate_risk_actual(4138.00, 4, 0.0, 3.0, 4151.30, 4, 0.0, 3.0, 117.4136, 53.20)
+      117.4136
+      # -bigger risk-
+      iex> LibCalculatorFinance.Trading.calculate_risk_actual(4178.50, 4, 0.0, 3.0, 4144.50, 4, 0.0, 3.0, 119.4196, -136.0)
+      142.0000
 
   """
-  def calculate_risk_actual([]), do: nil
-  def calculate_risk_actual(list) do
-    Enum.sum(list) / Kernel.length(list)
+  def calculate_risk_actual(a_price_buy, a_shares_buy, a_tax_buy, a_commission_buy, a_price_sell, a_shares_sell, a_tax_sell, a_commission_sell, a_risk_initial, a_profit_loss) do
+    if (((a_profit_loss < 0.0) and (abs(a_profit_loss) < a_risk_initial)) or (a_profit_loss >= 0.0)) do
+      a_risk_initial
+    else
+      a_shares_buy * a_price_buy * (1.0 + a_tax_buy / 100.0) - a_shares_sell * a_price_sell * (1.0 - a_tax_sell / 100.0) + a_commission_buy + a_commission_sell
+    end
   end
 
 end
