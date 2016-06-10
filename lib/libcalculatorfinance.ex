@@ -1,2 +1,2 @@
-defmodule Libcalculatorfinance do
+defmodule LibCalculatorFinance do
 end
