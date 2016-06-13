@@ -52,4 +52,16 @@ defmodule LibCalculatorFinance.General do
     a_price * a_exchange_rate
   end
 
+  @doc ~S"""
+  convert_to_orig:
+  Returns a price, in the original currency, with the exchange rate no longer applied to it.
+
+  ## Examples
+      iex> LibCalculatorFinance.General.convert_to_orig(6.0, 0.5)
+      12.0
+  """
+  def convert_to_orig(a_converted_price, a_exchange_rate) do
+    a_converted_price / a_exchange_rate
+  end
+
 end
