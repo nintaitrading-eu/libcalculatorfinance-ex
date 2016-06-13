@@ -27,4 +27,16 @@ defmodule LibCalculatorFinance.General do
     "0.0.0.1"
   end
 
+  @doc ~S"""
+  calculate_percentage_of:
+  Calculate what percentage a_value is from a_from_value.
+
+  ## Examples
+      iex> LibCalculatorFinance.General.calculate_percentage_of(2.0, 50.0)
+      4.0
+  """
+  def calculate_percentage_of(a_value, a_from_value) do
+    a_value / a_from_value * 100.0
+  end
+
 end
