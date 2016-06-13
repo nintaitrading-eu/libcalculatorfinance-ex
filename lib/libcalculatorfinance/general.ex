@@ -39,4 +39,17 @@ defmodule LibCalculatorFinance.General do
     a_value / a_from_value * 100.0
   end
 
+  @doc ~S"""
+  convert_from_orig:
+  Returns a price, with an exchange rate applied to it.
+  Used to convert a given currency to a new currency. 
+
+  ## Examples
+      iex> LibCalculatorFinance.General.convert_from_orig(12.0, 0.5)
+      6.0
+  """
+  def convert_from_orig(a_price, a_exchange_rate) do
+    a_price * a_exchange_rate
+  end
+
 end
