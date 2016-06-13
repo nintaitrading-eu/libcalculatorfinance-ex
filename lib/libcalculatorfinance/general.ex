@@ -42,7 +42,6 @@ defmodule LibCalculatorFinance.General do
   @doc ~S"""
   convert_from_orig:
   Returns a price, with an exchange rate applied to it.
-  Used to convert a given currency to a new currency. 
 
   ## Examples
       iex> LibCalculatorFinance.General.convert_from_orig(12.0, 0.5)
@@ -62,6 +61,18 @@ defmodule LibCalculatorFinance.General do
   """
   def convert_to_orig(a_converted_price, a_exchange_rate) do
     a_converted_price / a_exchange_rate
+  end
+
+  @doc ~S"""
+  calculate_leveraged_contracts:
+  Calculates the number of contracts to buy, according to an algorithm that determines an ideal amount of leverage.
+  
+  ## Examples
+      iex> LibCalculatorFinance.General.calculate_leveraged_contracts(4.0)
+      5.0
+  """
+  def calculate_leveraged_contracts(a_n) do
+    Float.ceil(a_n / 3.0) - 1 + a_n
   end
 
 end
