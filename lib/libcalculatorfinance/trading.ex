@@ -9,7 +9,11 @@
 ################################################################
 
 
-defmodule LibCalculatorFinance.Trading do
+defmodule LibCalculatorFinance.Trading.BeforeTrade do
+  @moduledoc false
+end
+
+defmodule LibCalculatorFinance.Trading.AfterTrade do
   @moduledoc false
 
   @doc ~S"""
