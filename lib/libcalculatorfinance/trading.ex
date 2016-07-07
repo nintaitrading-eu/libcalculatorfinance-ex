@@ -29,10 +29,10 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
   ## Examples
 
       # -minimum risk-
-      iex> LibCalculatorFinance.Trading.calculate_risk_actual(4138.00, 4, 0.0, 3.0, 4151.30, 4, 0.0, 3.0, 117.4136, 53.20)
+      iex> LibCalculatorFinance.Trading.AfterTrade.calculate_risk_actual(4138.00, 4, 0.0, 3.0, 4151.30, 4, 0.0, 3.0, 117.4136, 53.20)
       117.4136
       # -bigger risk-
-      iex> LibCalculatorFinance.Trading.calculate_risk_actual(4178.50, 4, 0.0, 3.0, 4144.50, 4, 0.0, 3.0, 119.4196, -136.0)
+      iex> LibCalculatorFinance.Trading.AfterTrade.calculate_risk_actual(4178.50, 4, 0.0, 3.0, 4144.50, 4, 0.0, 3.0, 119.4196, -136.0)
       142.0000
 
   """
