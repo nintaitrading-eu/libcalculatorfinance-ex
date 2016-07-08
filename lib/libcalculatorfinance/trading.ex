@@ -99,6 +99,19 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     end
   end
 
+  @doc ~S"""
+  calculate_amount:
+  Calculates the amount with tax and commission.
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_amount(12.0, 2)
+      24.0
+  """
+  def calculate_amount(a_price, a_shares) do
+    a_price * a_shares
+  end
+
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
