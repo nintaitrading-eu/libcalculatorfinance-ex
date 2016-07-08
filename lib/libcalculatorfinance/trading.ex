@@ -71,6 +71,34 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     a_risk / 100.0 * a_pool
   end
 
+  @doc ~S"""
+  calculate_risk_initial:
+  Calculates the initial risk.
+  This is the risk we will take if our stoploss is reached.
+  This should be equal to the risk_input if everything was
+  correctly calculated.
+  Note
+  ----
+  Long:
+  S.Pb + S.Pb.T + C - (S.Psl - S.Psl.T - C)
+  Short:
+  S.Ps + S.Psl.T + C - (S.Ps - S.Ps.T - C)
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_initial(12.0, 2, 3.0, 1.0, 10.0, true)
+      7.32
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_initial(12.0, 2, 3.0, 1.0, 10.0, false)
+      -0.6799999999999997
+  """
+  def calculate_risk_initial(a_price, a_shares, a_tax, a_commission, a_stoploss, a_is_long) do
+    if a_is_long do
+      a_shares * a_price * (1.0 + a_tax / 100.0) - a_shares * a_stoploss * (1.0 - a_tax / 100.0) + 2.0 * a_commission
+    else
+      a_shares * a_stoploss * (1.0 + a_tax / 100.0) - a_shares * a_price * (1.0 - a_tax / 100.0) + 2.0 * a_commission
+    end
+  end
+
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
