@@ -11,6 +11,21 @@
 
 defmodule LibCalculatorFinance.Trading.BeforeTrade do
   @moduledoc false
+
+  @doc ~S"""
+  calculate_shares_recommended:
+  Calculates the recommended amount of shares you can buy.
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_shares_recommended(10000.00, 1.0, 3.0, 12.0)
+      808
+  """
+  def calculate_shares_recommended(a_pool, a_commission, a_tax, a_price) do
+    # Note: Round convert the float result to an int.
+    round(Float.floor((a_pool - (a_tax / 100.0 * a_pool) - a_commission) / a_price))
+  end
+
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
