@@ -34,11 +34,11 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
   Long:
   amount selling at stoploss - amount at buying = initial risk of pool
   (S.Pb + S.Pb.T + C) - (S.Ps - S.Ps.T - C) = R/100 * pool
-  
+
   Short:
   amount selling - amount buying at stoploss = initial risk of pool
   (S.Psl + S.Psl.T + C) - (S.Ps - S.Ps.T - C) = R/100 * pool
-  
+
 
   ## Examples
 
@@ -55,6 +55,20 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
         (a_risk / 100.0 * a_pool + a_shares * a_price * (1.0 - a_tax / 100.0) - 2.0 * a_commission) /
         (a_shares * 1.0 + a_tax / 100.0)
       end
+  end
+
+  @doc ~S"""
+  calculate_risk_input:
+  Calculates the risk based on total pool and input.
+  Consider this the theoretical risk we want to take.
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_input(10000.00, 2.0)
+      200.0
+  """
+  def calculate_risk_input(a_pool, a_risk) do
+    a_risk / 100.0 * a_pool
   end
 
 end
