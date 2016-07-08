@@ -26,6 +26,37 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     round(Float.floor((a_pool - (a_tax / 100.0 * a_pool) - a_commission) / a_price))
   end
 
+  @doc ~S"""
+  calculate_stoploss:
+  Calculates the stoploss.
+  Note
+  ----
+  Long:
+  amount selling at stoploss - amount at buying = initial risk of pool
+  (S.Pb + S.Pb.T + C) - (S.Ps - S.Ps.T - C) = R/100 * pool
+  
+  Short:
+  amount selling - amount buying at stoploss = initial risk of pool
+  (S.Psl + S.Psl.T + C) - (S.Ps - S.Ps.T - C) = R/100 * pool
+  
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_stoploss(12.0, 2, 3.0, 1.0, 2.0, 10000.0, true)
+      109.00492610837439
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_stoploss(12.0, 2, 3.0, 1.0, 2.0, 10000.0, false)
+      -87.95939086294416
+  """
+  def calculate_stoploss(a_price, a_shares, a_tax, a_commission, a_risk, a_pool, a_is_long) do
+      if not a_is_long do
+        (a_shares * a_price * (1.0 + a_tax / 100.0) - a_risk / 100.0 * a_pool + 2.0 * a_commission) /
+        (a_shares * 1.0 - a_tax / 100.0)
+      else
+        (a_risk / 100.0 * a_pool + a_shares * a_price * (1.0 - a_tax / 100.0) - 2.0 * a_commission) /
+        (a_shares * 1.0 + a_tax / 100.0)
+      end
+  end
+
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
