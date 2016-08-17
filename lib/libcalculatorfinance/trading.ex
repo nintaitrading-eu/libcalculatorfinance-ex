@@ -158,6 +158,19 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     end
   end
 
+  @doc ~S"""
+  cost_transaction:
+  Cost of transaction (tax and commission).
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.cost_transaction(12.0, 2, 3.0, 1.0)
+      1.72
+  """
+  def cost_transaction(a_price, a_shares, a_tax, a_commission) do
+    a_price * a_shares * a_tax / 100.0 + a_commission
+  end
+
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
