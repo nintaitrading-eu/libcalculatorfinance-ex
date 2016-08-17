@@ -86,10 +86,10 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
 
   ## Examples
 
-      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_initial(12.0, 2, 3.0, 1.0, 10.0, true)
-      7.32
-      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_initial(12.0, 2, 3.0, 1.0, 10.0, false)
-      -0.6799999999999997
+      iex> Float.round(LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_initial(12.0, 2, 3.0, 1.0, 10.0, true), 6)
+      7.320000
+      iex> Float.round(LibCalculatorFinance.Trading.BeforeTrade.calculate_risk_initial(12.0, 2, 3.0, 1.0, 10.0, false), 6)
+      -0.680000
   """
   def calculate_risk_initial(a_price, a_shares, a_tax, a_commission, a_stoploss, a_is_long) do
     if a_is_long do
@@ -187,6 +187,25 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
       - a_amount - a_commission + a_shares * a_price
     else
       a_amount - a_shares * a_price - a_commission
+    end
+  end
+
+  @doc ~S"""
+  calculate_price:
+  Calculates the price when buying or selling.
+
+  ## Examples
+
+      iex> Float.round(LibCalculatorFinance.Trading.BeforeTrade.calculate_price(24.0, 2, 3.0, 1.0, :buy), 6)
+      11.165049
+      iex> Float.round(LibCalculatorFinance.Trading.BeforeTrade.calculate_price(24.0, 2, 3.0, 1.0, :sell), 6)
+      12.886598
+  """
+  def calculate_price(a_amount, a_shares, a_tax, a_commission, a_transaction_type) do
+    if a_transaction_type == :buy do
+      (a_amount - a_commission) / ((1.0 + a_tax / 100.0) * a_shares)
+    else
+      (a_amount + a_commission) / ((1.0 - a_tax / 100.0) * a_shares)
     end
   end
 
