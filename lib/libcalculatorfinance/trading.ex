@@ -171,6 +171,25 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     a_price * a_shares * a_tax / 100.0 + a_commission
   end
 
+  @doc ~S"""
+  cost_tax:
+  Cost of tax (buy and sell).
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.cost_tax(25.75, 1.0, 2, 12.0, :buy)
+      0.75
+      iex> LibCalculatorFinance.Trading.BeforeTrade.cost_tax(22.25, 1.0, 2, 12.0, :sell)
+      0.75
+  """
+  def cost_tax(a_amount, a_commission, a_shares, a_price, a_transaction_type) do
+    if a_transaction_type == :sell do
+      - a_amount - a_commission + a_shares * a_price
+    else
+      a_amount - a_shares * a_price - a_commission
+    end
+  end
+
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
