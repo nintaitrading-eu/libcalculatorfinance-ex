@@ -101,7 +101,7 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
 
   @doc ~S"""
   calculate_amount:
-  Calculates the amount with tax and commission.
+  Calculates the amount withouth tax and commission.
 
   ## Examples
 
@@ -112,6 +112,28 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     a_price * a_shares
   end
 
+  @doc ~S"""
+  calculate_amount_with_tax_and_commission:
+  Calculates the amount with tax and commission.
+  Note:
+  -----
+  AMT = SP + SPT + C (buy)
+  AMT = SP - SPT - C (sell)
+
+  ## Examples
+
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_amount_with_tax_and_commission(12.0, 2, 3.0, 1.0, :buy)
+      97.0
+      iex> LibCalculatorFinance.Trading.BeforeTrade.calculate_amount_with_tax_and_commission(12.0, 2, 3.0, 1.0, :sell)
+      -49.0
+  """
+  def calculate_amount_with_tax_and_commission(a_price, a_shares, a_tax, a_commission, a_transaction_type) do
+    if a_transaction_type == :buy do
+      a_shares * a_price + a_shares * a_price * a_tax + a_commission
+    else
+      a_shares * a_price - a_shares * a_price * a_tax - a_commission
+    end
+  end
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
