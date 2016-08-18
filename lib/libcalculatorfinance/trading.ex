@@ -10,10 +10,12 @@
 
 
 defmodule LibCalculatorFinance.Trading.BeforeTrade do
-  @moduledoc false
+  @moduledoc """
+  Functions, related to calculations before starting a trade.
+  """
 
-  @doc ~S"""
-  calculate_shares_recommended:
+  @doc """
+  # calculate_shares_recommended
   Calculates the recommended amount of shares you can buy.
 
   ## Examples
@@ -26,18 +28,19 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     round(Float.floor((a_pool - (a_tax / 100.0 * a_pool) - a_commission) / a_price))
   end
 
-  @doc ~S"""
-  calculate_stoploss:
+  @doc """
+  # calculate_stoploss
   Calculates the stoploss.
-  Note
-  ----
-  Long:
-  amount selling at stoploss - amount at buying = initial risk of pool
-  (S.Pb + S.Pb.T + C) - (S.Ps - S.Ps.T - C) = R/100 * pool
 
-  Short:
+  ## Long
+  amount selling at stoploss - amount at buying = initial risk of pool
+
+  (S.Psl + S.Psl.T + C) - (S.Pb - S.Pb.T - C) = R/100 * pool
+
+  ## Short
   amount selling - amount buying at stoploss = initial risk of pool
-  (S.Psl + S.Psl.T + C) - (S.Ps - S.Ps.T - C) = R/100 * pool
+  
+  (S.Ps + S.Ps.T + C) - (S.Psl - S.Psl.T - C) = R/100 * pool
 
 
   ## Examples
@@ -57,8 +60,8 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
       end
   end
 
-  @doc ~S"""
-  calculate_risk_input:
+  @doc """
+  # calculate_risk_input
   Calculates the risk based on total pool and input.
   Consider this the theoretical risk we want to take.
 
@@ -71,17 +74,17 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     a_risk / 100.0 * a_pool
   end
 
-  @doc ~S"""
-  calculate_risk_initial:
+  @doc """
+  # calculate_risk_initial
   Calculates the initial risk.
   This is the risk we will take if our stoploss is reached.
   This should be equal to the risk_input if everything was
   correctly calculated.
-  Note
-  ----
-  Long:
+
+  ## Long
   S.Pb + S.Pb.T + C - (S.Psl - S.Psl.T - C)
-  Short:
+
+  ## Short
   S.Ps + S.Psl.T + C - (S.Ps - S.Ps.T - C)
 
   ## Examples
@@ -99,8 +102,8 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     end
   end
 
-  @doc ~S"""
-  calculate_amount:
+  @doc """
+  # calculate_amount
   Calculates the amount withouth tax and commission.
 
   ## Examples
@@ -112,12 +115,13 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     a_price * a_shares
   end
 
-  @doc ~S"""
-  calculate_amount_with_tax_and_commission:
+  @doc """
+  # calculate_amount_with_tax_and_commission
   Calculates the amount with tax and commission.
-  Note:
-  -----
+
+  ## Note
   AMT = S.P + S.P.T + C (buy)
+
   AMT = S.P - S.P.T - C (sell)
 
   ## Examples
@@ -135,12 +139,13 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     end
   end
 
-  @doc ~S"""
-  calculate_amount_with_tax:
+  @doc """
+  # calculate_amount_with_tax
   Calculates the amount (buy/sell) with tax included, but not the commission.
-  Note:
-  -----
+
+  ## Note
   profit_loss = S.P + S.P.T (buy)
+
   profit_loss = S.P - S.P.T (sell)
 
   ## Examples
@@ -158,8 +163,8 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     end
   end
 
-  @doc ~S"""
-  cost_transaction:
+  @doc """
+  # cost_transaction
   Cost of transaction (tax and commission).
 
   ## Examples
@@ -171,8 +176,8 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     a_price * a_shares * a_tax / 100.0 + a_commission
   end
 
-  @doc ~S"""
-  cost_tax:
+  @doc """
+  # cost_tax
   Cost of tax (buy and sell).
 
   ## Examples
@@ -190,8 +195,8 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
     end
   end
 
-  @doc ~S"""
-  calculate_price:
+  @doc """
+  # calculate_price
   Calculates the price when buying or selling.
 
   ## Examples
@@ -212,16 +217,17 @@ defmodule LibCalculatorFinance.Trading.BeforeTrade do
 end
 
 defmodule LibCalculatorFinance.Trading.AfterTrade do
-  @moduledoc false
+  @moduledoc """
+  Functions, related to calculations after a trade has been closed.
+  """
 
-  @doc ~S"""
-  calculate_risk_actual:
+  @doc """
+  # calculate_risk_actual
   Calculates the risk we actually took, based on the data in TABLE_TRADE.
-  Note:
-  -----
+
+  ## Note
   risk_actual = S.Pb + S.Pb.T + Cb - (S.Ps - S.Ps.T - Cs)
-  Note:
-  -----
+
   It's the same for long and short.
 
   ## Examples
@@ -242,8 +248,8 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     end
   end
 
-  @doc ~S"""
-  calculate_r_multiple:
+  @doc """
+  # calculate_r_multiple
   Function to calculate the R-multiple.
 
   ## Examples
@@ -255,8 +261,8 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_profit_loss / a_risk_initial
   end
 
-  @doc ~S"""
-  calculate_cost_total:
+  @doc """
+  # calculate_cost_total
   Function to calculate the total cost associated with the given trade.
 
   ## Examples
@@ -269,13 +275,14 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_tax_buy / 100.0 * a_amount_buy + a_commission_buy + a_tax_sell / 100.0 * a_amount_sell + a_commission_sell
   end
 
-  @doc ~S"""
-  calculate_profit_loss:
+  @doc """
+  # calculate_profit_loss
   Calculates the profit_loss, without taking tax and commission into account.
-  Note:
-  -----
+
+  ## Note
   profit_loss = S.Ps - S.Pb
-  => it's the same for long and short
+
+  It's the same for long and short
 
   ## Examples
 
@@ -286,13 +293,14 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_shares_sell * a_price_sell - a_shares_buy * a_price_buy
   end
 
-  @doc ~S"""
-  calculate_profit_loss_total:
+  @doc """
+  # calculate_profit_loss_total
   Calculates the total profit_loss.
-  Note:
-  -----
+
+  # Note
   profit_loss = S.Ps - S.Ps.T - C - (S.Pb + S.Pb.T + C)
-  => it's the same for long and short
+
+  It's the same for long and short
 
   ## Examples
 
@@ -304,8 +312,8 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_shares_sell * a_price_sell * (1.0 - a_tax_sell / 100.0) - a_shares_buy * a_price_buy * (1.0 - a_tax_buy / 100.0) - (a_commission_buy + a_commission_sell)
   end
 
-  @doc ~S"""
-  calculate_cost_other:
+  @doc """
+  # calculate_cost_other
   Calculates other costs based on the difference that remains.
 
   ## Examples
