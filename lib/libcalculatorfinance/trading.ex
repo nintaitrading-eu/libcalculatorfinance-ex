@@ -303,4 +303,31 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_price_sell, a_shares_sell, a_tax_sell, a_commission_sell) do
     a_shares_sell * a_price_sell * (1.0 - a_tax_sell / 100.0) - a_shares_buy * a_price_buy * (1.0 - a_tax_buy / 100.0) - (a_commission_buy + a_commission_sell)
   end
+
+  @doc ~S"""
+  calculate_cost_other:
+  Calculates other costs based on the difference that remains.
+
+  ## Examples
+      # positive, no other cost
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_cost_other(12.0, 8.92, 3.08), 6)
+      0.0
+      # negative, no other cost
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_cost_other(-12.0, -8.92, -3.08), 6)
+      0.0
+      # positive, 1.5 EUR other cost
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_cost_other(12.0, 8.92, 1.58), 6)
+      1.5
+      # negative, 1.5 EUR other cost
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_cost_other(-12.0, -8.92, -1.58), 6)
+      -1.5
+  """
+  def calculate_cost_other(a_profit_loss, a_profit_loss_total, a_cost_total) do
+    l_diff_cost_profit = a_profit_loss - a_profit_loss_total - a_cost_total
+    if abs(l_diff_cost_profit) > 0.0 do
+      l_diff_cost_profit
+    else
+      0.0
+    end
+  end
 end
