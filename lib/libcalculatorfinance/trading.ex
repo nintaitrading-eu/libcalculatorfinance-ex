@@ -255,4 +255,18 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_profit_loss / a_risk_initial
   end
 
+  @doc ~S"""
+  calculate_cost_total:
+  Function to calculate the total cost associated with the given trade.
+
+  ## Examples
+
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_cost_total(100.0, 3.0, 1.0, 50.0, 3.0, 1.0), 6)
+      6.5
+  """
+  def calculate_cost_total(a_amount_buy, a_tax_buy, a_commission_buy,
+    a_amount_sell, a_tax_sell, a_commission_sell) do
+    a_tax_buy / 100.0 * a_amount_buy + a_commission_buy + a_tax_sell / 100.0 * a_amount_sell + a_commission_sell
+  end
+
 end
