@@ -66,7 +66,7 @@ defmodule LibCalculatorFinance.General do
   @doc ~S"""
   calculate_leveraged_contracts:
   Calculates the number of contracts to buy, according to an algorithm that determines an ideal amount of leverage.
-  
+
   ## Examples
       iex> LibCalculatorFinance.General.calculate_leveraged_contracts(4.0)
       5.0
