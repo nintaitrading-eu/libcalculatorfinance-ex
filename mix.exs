@@ -25,7 +25,7 @@ defmodule Libcalculatorfinance.Mixfile do
     files: ["lib", "mix.exs", "LICENSE.txt", "README.adoc"],
     maintainers: ["Andy Nagels"],
     licenses: ["BSD 3.0"],
-    links: %{"GitHub" => "https://github.com/rockwolf/elixir/tree/libcalculatorfinance-ex-release",
+    links: %{"GitHub" => "https://github.com/rockwolf/libcalculatorfinance-ex/tree/0.0.1",
              "Docs" => "http://hexdocs.pm/libcalculatorfinance/"}
     ]
   end
