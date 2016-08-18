@@ -242,4 +242,17 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     end
   end
 
+  @doc ~S"""
+  calculate_r_multiple:
+  Function to calculate the R-multiple.
+
+  ## Examples
+
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_r_multiple(-100.0, 200.0), 6)
+      -0.5
+  """
+  def calculate_r_multiple(a_profit_loss, a_risk_initial) do
+    a_profit_loss / a_risk_initial
+  end
+
 end
