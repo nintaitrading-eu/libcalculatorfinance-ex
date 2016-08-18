@@ -269,4 +269,20 @@ defmodule LibCalculatorFinance.Trading.AfterTrade do
     a_tax_buy / 100.0 * a_amount_buy + a_commission_buy + a_tax_sell / 100.0 * a_amount_sell + a_commission_sell
   end
 
+  @doc ~S"""
+  calculate_profit_loss:
+  Calculates the profit_loss, without taking tax and commission into account.
+  Note:
+  -----
+  profit_loss = S.Ps - S.Pb
+  => it's the same for long and short
+
+  ## Examples
+
+      iex> Float.round(LibCalculatorFinance.Trading.AfterTrade.calculate_profit_loss(12.0, 2, 24.0, 2), 6)
+      24.0
+  """
+  def calculate_profit_loss(a_price_buy, a_shares_buy, a_price_sell, a_shares_sell) do
+    a_shares_sell * a_price_sell - a_shares_buy * a_price_buy
+  end
 end
