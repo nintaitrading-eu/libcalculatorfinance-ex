@@ -3,7 +3,7 @@ defmodule Libcalculatorfinance.Mixfile do
 
   def project do
     [app: :libcalculatorfinance,
-     version: "0.0.0.1",
+     version: "0.0.1",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -26,7 +26,7 @@ defmodule Libcalculatorfinance.Mixfile do
     maintainers: ["Andy Nagels"],
     licenses: ["BSD 3.0"],
     links: %{"GitHub" => "https://github.com/rockwolf/elixir/tree/libcalculatorfinance-ex-release",
-             "Docs" => "http://hexdocs.pm/libcalculatorfinance-ex/"}
+             "Docs" => "http://hexdocs.pm/libcalculatorfinance/"}
     ]
   end
 

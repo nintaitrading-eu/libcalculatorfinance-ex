@@ -1,6 +1,9 @@
 = Libcalculatorfinance
 
-**TODO: Add description**
+An elixir port of libcalculatorfinance, a library with financial calculations,
+related to investing and trading.
+
+The original version can be found here: https://github.com/rockwolf/libcalculatorfinance
 
 == Installation
 
